@@ -1,0 +1,40 @@
+ALGORITHM rent_car
+VAR nbre_km,nbre_day,cost_km,cost_days:INTEGER
+CONST 
+    r1: FLOAT:=0.7;
+    r2: FLOAT:=0.4;
+    r3:FLOAT:=0.2;
+    p_d:INTEGER:=100;
+    ins:FLOAT:=0.3;
+    vat:FLOAT:=0.18;
+    cost_km:=0;
+    cost_days:=0;
+    
+    
+BEGIN
+    WRITE("entrer nbre de km:");
+    READ(nbre_km);
+    WRITE("entrer nbre de day:");
+    READ(nbre_day);
+    //rental by km
+    IF (nbre_km>0 AND nbre_km<=100) THEN
+        cost_km := cost_km+(nbre_km*r1) ;
+    ELSE IF (nbre_km>=101 AND nbre_km<1000) THEN
+        cost_km := cost_km+((nbre_km-101)*r2) +(100*r1);
+        ELSE
+        cost_km := cost_km+(900*r2) +(100*r1)+((nbre_km-1001)*r3);
+
+    END_IF
+        cost_km :=cost_km +(ins*nbre_day);
+        cost_km:=cost_km + (vat*cost_km);
+        
+    //daily rate
+    cost_days:= cost_days + nbre_day*(ins + 100);
+
+    cost_days:=cost_days*(1+vat);
+    IF (cost_days>cost_km) THEN
+        write("rental by km is suitable");
+        ELSE
+        write("rental by days is suitable");
+    END_IF
+END
